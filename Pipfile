@@ -19,6 +19,7 @@ flask = "*"
 psycopg-binary = "*"
 requests = "*"
 bcrypt = "*"
+jsonify = "*"
 
 [dev-packages]
 
