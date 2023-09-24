@@ -71,3 +71,7 @@
 - Install Node 
     - Run `npm install --prefix client`
 
+## Test Python Environment 
+- Pass
+## Test Node Environment
+- Pass

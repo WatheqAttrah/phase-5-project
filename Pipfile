@@ -18,6 +18,7 @@ bcrypt-flask = "*"
 flask = "*"
 psycopg-binary = "*"
 requests = "*"
+bcrypt = "*"
 
 [dev-packages]
 
