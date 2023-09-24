@@ -64,3 +64,10 @@
 - seed.py
 
 ## Frontend 
+- Create client directory
+    - Run `mkdir client`
+- - Create react app inside /client directory.
+    - Run `npm create-react-app client`
+- Install Node 
+    - Run `npm install --prefix client`
+
