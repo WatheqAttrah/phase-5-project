@@ -14,7 +14,7 @@
 
 ## Setup
 
-### `server/` directory contains all the backend code.
+## `server/` directory contains all the backend code.
 ### Install Python Virtual Environment Tool 
 - Run command `pipenv install`
 - Enter the shell with `pipenv shell`
@@ -53,3 +53,14 @@
     - create and destroy lots of cursors and create a large number of “INSERTs” or “UPDATEs” 
 - `requests`
     - Using requests, you can get, post, delete, update the data for the URL given.
+
+## Create Backend files
+- config.py
+- app.py
+    - is your Flask application
+    - Build a simple API backend like we have in previous modules.
+    - You should use Flask-RESTful for your routes
+- models.py
+- seed.py
+
+## Frontend 
