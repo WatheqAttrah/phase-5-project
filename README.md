@@ -20,4 +20,36 @@
 - Enter the shell with `pipenv shell`
 
 
+### Packages Installed 
+- [Resources](https://pypi.org/)
+- Run the following command bafore each package 
+    - `pipenv install [Package]`
 
+- `flask-sqlalchemy`
+    - provide ways to interact with several database.
+- `flask-migrate` = "*"
+    - Handles SQLAlchemy database migrations.
+- `sqlalchemy-serializer`
+    - SQLAlchemy model to become serializable.
+- `flask-restful`
+    - Adds support for handling REST APIs in Python.
+- `flask-cors`
+    - Enables communications with resources in many domains
+- `flask-marshmallow`
+    - adds additional features to marshmallow, including URL and Hyperlinks fields for HATEOAS-ready APIs.
+- `faker` 
+    - To generate Fake data
+- `faker-vehicle`
+    - Provides vehicle and machinery related fake data for testing purposes.
+- `faker-sqlalchemy`
+    - Provider for the Faker library that helps populate SQLAlchemy ORM models.
+- `gunicorn`
+    - Python Web Server Gateway Interface (WSGI) HTTP serve
+- `bcrypt-flask`
+    - hashing function for password
+- `flask`
+    - Flask is a lightweight WSGI web application framework
+- `psycopg-binary`
+    - create and destroy lots of cursors and create a large number of “INSERTs” or “UPDATEs” 
+- `requests`
+    - Using requests, you can get, post, delete, update the data for the URL given.
