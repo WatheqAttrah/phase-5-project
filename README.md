@@ -14,3 +14,6 @@
 
 ## Setup
 
+### `server/` directory contains all the backend code.
+
+
