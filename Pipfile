@@ -16,6 +16,7 @@ faker-sqlalchemy = "*"
 gunicorn = "*"
 bcrypt-flask = "*"
 flask = "*"
+psycopg-binary = "*"
 
 [dev-packages]
 
