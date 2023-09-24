@@ -17,6 +17,7 @@ gunicorn = "*"
 bcrypt-flask = "*"
 flask = "*"
 psycopg-binary = "*"
+requests = "*"
 
 [dev-packages]
 
