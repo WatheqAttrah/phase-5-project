@@ -15,5 +15,9 @@
 ## Setup
 
 ### `server/` directory contains all the backend code.
+### Install Python Virtual Environment Tool 
+- Run command `pipenv install`
+- Enter the shell with `pipenv shell`
+
 
 
