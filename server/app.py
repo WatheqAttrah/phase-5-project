@@ -59,5 +59,11 @@ class Logout(Resource):
         return {'error': '401 Unauthorized'}, 401
 
 
+api.add_resource(Signup, '/signup', endpoint='signup')
+api.add_resource(Check_Session, '/check_session', endpoint='check_session')
+api.add_resource(Login, '/login', endpoint='login')
+api.add_resource(Logout, '/logout', endpoint='logout')
+api.add_resource(RecipeIndex, '/recipes', endpoint='recipes')
+
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
