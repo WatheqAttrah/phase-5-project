@@ -23,3 +23,6 @@ with app.app_context():
         users.append(user)
 
     db.session.add_all(users)
+
+
+

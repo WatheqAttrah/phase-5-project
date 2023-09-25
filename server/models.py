@@ -45,11 +45,11 @@ class Car(db.Model, SerializerMixin):
     price = db.Column(db.Float)
     vin = db.Column(db.String, unique=True)
     created = db.Column(db.DateTime, default=db.func.now())
-    
+
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
-    
-    
+
+
     def __repr__(self):
         return f'<Car {self.make} |Price: {self.price}>'
 
@@ -58,11 +58,10 @@ class Post(db.Model, SerializerMixin):
     __tablename__ = 'posts'
 
     serialize_rules = ('-user', '-prompt',)
-    
+
     id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.String(600), nullable=False)
-    likes = db.Column(db.Integer, default=0, nullable=False)
+    
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    prompt_id = db.Column(db.Integer, db.ForeignKey('prompts.id'))
+    
     created = db.Column(db.DateTime, default=db.func.now())
-    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
+    pass
