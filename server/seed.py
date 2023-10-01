@@ -5,7 +5,8 @@ from models import db, User, Post, Car, interesting
 from faker import Faker
 from faker_vehicle import VehicleProvider
 import random
-from app import app
+from config import app
+
 
 fake = Faker()
 fake.add_provider(VehicleProvider)
