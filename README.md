@@ -12,7 +12,8 @@
 - Open the Terminal  
 - Run command `git@github.com:WatheqAttrah/phase-5-project.git`
 
-## Setup
+## Backend Setup 
+================
 
 ## `server/` directory contains all the backend code.
 ### Install Python Virtual Environment Tool 
@@ -22,7 +23,7 @@
 
 ### Packages Installed 
 - [Resources](https://pypi.org/)
-- Run the following command bafore each package 
+- Run the following command before each package 
     - `pipenv install [Package]`
 
 - `flask-sqlalchemy`
@@ -75,3 +76,19 @@
 - Pass
 ## Test Node Environment
 - Pass
+
+# Frontend 
+    -Flask
+
+
+
+# Backend 
+    - 
+
+
+
+
+
+
+
+
