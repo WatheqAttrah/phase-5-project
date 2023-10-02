@@ -26,3 +26,65 @@ python-dotenv = "*"
 
 [requires]
 python_version = "3.9"
+
+
+
+
+
+# Models go here!
+
+
+class User(db.Model, SerializerMixin):
+    __tablename__ = 'users'
+
+    serialize_rules = ('-posts.user',)
+
+    id = db.Column(db.Integer(), primary_key=True)
+    username = db.Column(db.String, unique=True, nullable=False)
+    email = db.Column(db.String, unique=True, nullable=False)
+    password_hash = db.Column(db.String(60))
+
+    posts = db.relationship('Post', backref='user')
+
+    @hybrid_property
+    def password_hash(self):
+        return self._password_hash
+
+    @password_hash.setter
+    def password_hash(self, password):
+        # utf-8 encoding and decoding is required in python 3
+        password_hash = bcrypt.generate_password_hash(
+            password.encode('utf-8'))
+        self._password_hash = password_hash.decode('utf-8')
+
+    def authenticate(self, password):
+        return bcrypt.check_password_hash(
+            self._password_hash, password.encode('utf-8'))
+
+
+class Post(db.Model, SerializerMixin):
+    __tablename__ = 'posts'
+
+    serialize_rules = ('-car.posts', '-user.posts',)
+
+    id = db.Column(db.Integer, primary_key=True)
+    post = db.Column(db.String)
+
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    car_id = db.Column(db.Integer, db.ForeignKey('cars.id'))
+
+    def __repr__(self):
+        return f'<Post: {self.id}, Post: {self.post}>'
+
+
+class Car(db.Model, SerializerMixin):
+    __tablename__ = 'cars'
+
+    serialize_rules = ('-post.car',)
+
+    id = db.Column(db.Integer, primary_key=True)
+    make = db.Column(db.String(20))
+    model = db.Column(db.String(20))
+
+    def __repr__(self):
+        return (f'<Car Id: {self.id}, Make: {self.make}, Model:{self.model}>')

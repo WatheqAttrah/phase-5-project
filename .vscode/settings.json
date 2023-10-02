@@ -4,8 +4,10 @@
     },
     "python.formatting.provider": "none",
     "cSpell.words": [
+        "appname",
         "backref",
         "jsonify",
+        "repr",
         "sourcery",
         "sqlalchemy"
     ]

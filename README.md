@@ -86,8 +86,47 @@
     - 
 
 
+# phase-5-project % tree -L 2
+.
+├── LICENSE
+├── Pipfile
+├── Pipfile.lock
+├── README.md
+├── client
+│   ├── README.md
+│   ├── components
+│   ├── node_modules
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── public
+│   └── src
+└── server
+    ├── __pycache__
+    ├── app.py
+    ├── config.py
+    ├── instance
+    ├── migrations
+    ├── models.py
+    └── seed.py
 
 
+
+# $ server % tree -L 2
+.
+├── __pycache__
+│   └── config.cpython-39.pyc
+├── app.py
+├── config.py
+├── instance
+│   └── app.db
+├── migrations
+│   ├── README
+│   ├── alembic.ini
+│   ├── env.py
+│   ├── script.py.mako
+│   └── versions
+├── models.py
+└── seed.py
 
 
 
