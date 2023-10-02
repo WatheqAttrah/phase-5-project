@@ -35,7 +35,7 @@ def generate_fake_vin():
 if __name__ == '__main__':
 
     with app.app_context():
-        print("~~~~~~Start Seeding!...~~~~~~")
+        print("~~~~~~Delete Old Seed Data!...~~~~~~")
         # Seed code goes here
         Post.query.delete()
         User.query.delete()
@@ -52,7 +52,7 @@ if __name__ == '__main__':
         db.session.add_all(users)
 
         cars = []
-        print('~~~~~~Seeding Fake Users~~~~~~')
+        print('~~~~~~Seeding Fake Cars~~~~~~')
         for _ in range(20):
             make = fake.vehicle_make()
             model = fake.vehicle_model()
