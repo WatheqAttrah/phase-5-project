@@ -43,7 +43,7 @@ if __name__ == '__main__':
 
         users = []
         print('~~~~~~Seeding Fake Users~~~~~~')
-        for _ in range(5):
+        for _ in range(10):
             user = User(username=fake.name(),
                         email=fake.email(),
                         password_hash='ABCDEF')
@@ -83,7 +83,7 @@ if __name__ == '__main__':
                 title=fake.sentence(nb_words=3),
                 description=fake.text(max_nb_chars=200),
                 created_at=datetime.now(timezone.utc),
-                user=user,
+                user=random_choice(users),
                 cars=random_choice(cars),
             )
             posts.append(post)
