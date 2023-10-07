@@ -3,15 +3,13 @@ from sqlalchemy.ext.hybrid import hybrid_property
 
 from config import db, bcrypt
 
-# Models go here!
-
 
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
     serialize_rules = ('-posts.user',)
 
-    id = db.Column(db.Integer(), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True, nullable=False)
     image_url = db.Column(db.String)
     email = db.Column(db.String, unique=True, nullable=False)
