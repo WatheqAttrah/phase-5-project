@@ -21,6 +21,7 @@ faker = "*"
 flask-marshmallow = "*"
 marshmallow = "*"
 python-dotenv = "*"
+honcho = "*"
 
 [dev-packages]
 
