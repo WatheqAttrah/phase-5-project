@@ -1,6 +1,3 @@
-# Standard library imports
-
-# Remote library imports
 from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate
@@ -9,15 +6,12 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 from flask_bcrypt import Bcrypt
 
-# Local imports
 
-# Instantiate app, set attributes
 app = Flask(__name__)
 
 # # Sets a secret key for the application. The secret key is essential for security purposes,
 # # such as protecting against cross-site request forgery (CSRF) attacks and session management.
-# app.secret_key = b'Y\xf1Xz\x00\xad|eQ\x80t \xca\x1a\x10K'
-app.secret_key = b'53b02f2137d6a4782ddae57bd271b3d0'
+app.secret_key = b'Y\xf1Xz\x00\xad|eQ\x80t \xca\x1a\x10K'
 
 # # You can change this URI to connect to a different database system like MySQL or PostgreSQL.
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
@@ -52,4 +46,4 @@ api = Api(app)
 CORS(app)
 
 # Initializes the SQLAlchemy extension with the Flask application.
-bcrypt = Bcrypt()
+bcrypt = Bcrypt(app)
