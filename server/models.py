@@ -15,20 +15,16 @@ class User(db.Model, SerializerMixin):
     username = db.Column(db.String, unique=True, nullable=False)
     image_url = db.Column(db.String)
     email = db.Column(db.String, unique=True, nullable=False)
-    _password_hash = db.Column(db.String(60))
+    _password_hash = db.Column(db.String())
 
     posts = db.relationship('Post', backref='user')
 
-    def __repr__(self):
-        return f'User {self.username}, ID: {self.id}'
-
     @hybrid_property
     def password_hash(self):
-        return self._password_hash
+        raise Exception('Password hashes may not be viewed.')
 
     @password_hash.setter
     def password_hash(self, password):
-        # utf-8 encoding and decoding is required in python 3
         password_hash = bcrypt.generate_password_hash(
             password.encode('utf-8'))
         self._password_hash = password_hash.decode('utf-8')
@@ -36,6 +32,9 @@ class User(db.Model, SerializerMixin):
     def authenticate(self, password):
         return bcrypt.check_password_hash(
             self._password_hash, password.encode('utf-8'))
+
+    def __repr__(self):
+        return f'User {self.username}, ID: {self.id}'
 
 
 class Post(db.Model, SerializerMixin):
@@ -46,7 +45,7 @@ class Post(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String, nullable=False)
     description = db.Column(db.String())
-    created_at = db.Column(db.DateTime, default=db.func.now())
+    created_at = db.Column(db.DateTime, nullable=False, default=db.func.now)
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
@@ -59,7 +58,7 @@ class Post(db.Model, SerializerMixin):
 class Car(db.Model, SerializerMixin):
     __tablename__ = 'cars'
 
-    serialize_rules = ('-post.car',)
+    serialize_rules = ('-post.car', 'cars')
 
     id = db.Column(db.Integer, primary_key=True)
     make = db.Column(db.String(20))
@@ -74,4 +73,4 @@ class Car(db.Model, SerializerMixin):
     posts = db.relationship('Post', backref='cars')
 
     def __repr__(self):
-        return f'<Car(Id: {self.id}, Make: {self.make}, Model: {self.model}, Year: {self.year}, Price: {self.price}, VIN: {self.vin}, Engine: {self.engine})>'
+        return f'<Car Id: {self.id}, Make: {self.make}, Model: {self.model}, Year: {self.year},Image: {self.image}, Price: {self.price}, VIN: {self.vin}, ,Engine: {self.engine}>'
