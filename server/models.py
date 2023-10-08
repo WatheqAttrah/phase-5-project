@@ -60,7 +60,7 @@ class Car(db.Model, SerializerMixin):
     make = db.Column(db.String(20))
     model = db.Column(db.String(20))
     year = db.Column(db.Integer())
-    image = db.Column(db.String(256))
+    image = db.Column(db.String(50))
     price = db.Column(db.Float(precision=2))
     vin = db.Column(db.String(17), unique=True)
     engine = db.Column(db.Integer)

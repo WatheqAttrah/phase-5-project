@@ -1,15 +1,13 @@
-import React from 'react'
+import React from 'react';
 
-function PostCard({ user_id, id, title, description }) {
-
-
+function PostCard({ id, title, description }) {
   return (
-    <div>
-      <p>Id: <b>{id}</b></p>
-      <p>Title: <b>{title}</b></p>
-      <p>Description: <b>{description}</b></p>
+    <div className="post-card">
+      <h2 className="post-title">{title}</h2>
+      <p className="post-description">{description}</p>
+      <p className="post-id">ID: {id}</p>
     </div>
-  )
+  );
 }
 
-export default PostCard
+export default PostCard;

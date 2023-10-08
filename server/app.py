@@ -234,7 +234,7 @@ class Cars(Resource):
             cars = []
             for car in Car.query.all():
                 car_dict = {
-                    "Make": car.make,
+                    "make": car.make,
                     "model": car.model,
                     "year": car.year,
                     "image": car.image,
@@ -266,7 +266,7 @@ class CarByID(Resource):
 
         if car is not None:
             car_dict = {
-                "Make": car.make,
+                "make": car.make,
                 "model": car.model,
                 "year": car.year,
                 "image": car.image,
@@ -290,7 +290,7 @@ class CarByMake(Resource):
         car_by_make = Car.query.filter(func.lower(Car.make) == make).first()
         if car_by_make is not None:
             car_dict = {
-                "Make": car_by_make.make,
+                "make": car_by_make.make,
                 "model": car_by_make.model,
                 "year": car_by_make.year,
                 "image": car_by_make.image,

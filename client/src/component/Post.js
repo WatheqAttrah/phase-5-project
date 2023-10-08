@@ -1,31 +1,43 @@
-import React, { useState, useEffect } from 'react'
-import PostCard from './PostCard'
+import React, { useState, useEffect } from 'react';
+import PostCard from './PostCard';
 
-
-function Post({ user }) {
-
-  const [posts, setPosts] = useState([])
+function Post() {
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
+    // Fetch all posts from the server
     fetch('/posts')
-      .then(r => r.json())
-      .then(post => setPosts(post))
-  }, [])
-
-
-
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        }
+        throw new Error('Failed to fetch posts');
+      })
+      .then((data) => {
+        setPosts(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   return (
     <div>
-      <h1>Welcome to your </h1>
-      {posts.map(post => (
-        <PostCard user={user} key={post.id} id={post.id} title={post.title} description={post.description} />
-
-      )
+      <h1>All Posts</h1>
+      {posts.length === 0 ? (
+        <p>No posts available.</p>
+      ) : (
+        <div>
+          {posts.map((post) => (
+            <PostCard
+              title={post.title}
+              description={post.description}
+            />
+          ))}
+        </div>
       )}
-
     </div>
-  )
+  );
 }
 
-export default Post
+export default Post;
