@@ -1,6 +1,6 @@
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.hybrid import hybrid_property
-
+from app import app
 from config import db, bcrypt
 
 # ===============#===============#===============#===============#===============#===============#===============
@@ -43,7 +43,7 @@ class Review(db.Model, SerializerMixin):
     car_id = db.Column(db.Integer, db.ForeignKey('cars.id'))
 
     def __repr__(self):
-        return f'<Post Id: {self.id}, Review Title: {self.review},>'
+        return f'<Review Id: {self.id},  {self.review}>'
 
 # ===============#===============#===============#===============#===============#===============#===============
 
@@ -55,7 +55,6 @@ class User(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(), unique=True, nullable=False)
-    email = db.Column(db.String)
     admin = db.Column(db.String, default=False)
 
     password_id = db.Column(db.Integer, db.ForeignKey(
@@ -77,6 +76,7 @@ class User(db.Model, SerializerMixin):
     def authenticate(self, password):
         return bcrypt.check_password_hash(
             self._password_hash, password.encode('utf-8'))
+
 
     def __repr__(self):
         return f'User {self.username}, ID: {self.id}'

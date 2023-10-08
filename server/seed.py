@@ -22,7 +22,7 @@ fake.add_provider(VehicleProvider)
 
 
 def generate_fake_vin():
-    # The first character in a VIN is typically a letter
+    # The first character in a VIN is typically a letter, so we'll start with that.
     vin = random.choice(string.ascii_uppercase)
     # Generate the remaining 16 characters, which can be letters and numbers.
     vin += ''.join(random.choice(string.ascii_uppercase + string.digits)
@@ -42,13 +42,10 @@ if __name__ == '__main__':
 
         users = []
         print('~~~~~~Seeding Fake Users~~~~~~')
-
-        for _ in range(5):
+        for _ in range(10):
             user = User(
                 username=fake.name(),
-                email=fake.email(),  # Add a random email address
-                # Set admin status randomly
-                admin=fake.boolean(chance_of_getting_true=20)
+                admin=fake.admin(),
             )
             user.password_hash = f'{user.username}password'
             users.append(user)
@@ -62,7 +59,7 @@ if __name__ == '__main__':
             model = fake.vehicle_model()
             year = fake.random_int(min=1990, max=2023)
             image = fake.image_url()
-            price = round(fake.random_int(min=1000, max=150000) / 2)
+            price = round(fake.random_int(min=1000, max=150000) / 100, 2)
             vin = generate_fake_vin()
             engine = fake.random_int(min=4, max=12)
             miles = fake.random_int(min=5000, max=170000)
@@ -81,18 +78,22 @@ if __name__ == '__main__':
         db.session.add_all(cars)
 
         reviews = []
-        print('~~~~~~Seeding Fake Reviews~~~~~~')
-
+        print('~~~~~~Seeding Fake Posts | Cars ~~~~~~')
         for _, _ in itertools.product(users, range(6)):
             review = Review(
-                review=fake.text(max_nb_chars=200),
+                review=fake.paragraph(),
                 created_at=datetime.now(timezone.utc),
                 user=random_choice(users),
-                car=random_choice(cars),
+                cars=random_choice(cars),
             )
             reviews.append(review)
 
-        db.session.add_all(reviews)
+        db.session.add_all(review)
+
+        for car in cars:
+            review = random_choice(reviews)
+            car.review = review
+            reviews.remove(review)
 
         db.session.commit()
         print('~~~~~Seeding Complete~~~~~')
