@@ -14,14 +14,26 @@ function App() {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
-    // Check the user session on server-side
+    // Check the user session on the server-side
     fetch("/check_session")
       .then((response) => {
         if (response.status === 200) {
-          response.json().then((user) => setUser(user));
+          // Parse the JSON response
+          return response.json();
+        } else {
+          // Handle non-200 status codes here (e.g., session expired)
+          throw new Error("Session expired or server error");
         }
+      })
+      .then((user) => {
+        // Set the user in the component's state
+        setUser(user);
+      })
+      .catch((error) => {
+        // Handle errors here (e.g., network issues, server errors)
+        console.error(error);
       });
-  }, [])
+  }, []);
 
   return (
     <div>
@@ -32,7 +44,6 @@ function App() {
           <Route path='/login' render={() => user ? <Redirect to='/' /> : <Login setUser={setUser} />} />
           <Route path='/signup' render={() => user ? <Redirect to='/' /> : <Signup setUser={setUser} />} />
           <Route path='/post' render={() => user ? <Post user={user} /> : <Redirect to='/login' />} />
-          {/* <Route path='/newpost' component={NewPost} /> */}
           <Route path='/posts' component={Post} />
           <Route path='/Car' component={Car} />
           <Route path='/'>

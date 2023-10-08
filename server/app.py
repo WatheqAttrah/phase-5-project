@@ -15,38 +15,19 @@ def index():
 
 class Signup(Resource):
     def post(self):
-        try:
-            data = request.get_json()
 
-            # Validate JSON data
-            if 'username' not in data or 'password' not in data:
-                raise ValueError('Both username and password are required.')
+        username = request.get_json()['username']
+        password = request.get_json()['password']
 
-            username = data['username']
-            password = data['password']
-
-            # Check if the username already exists
-            existing_user = User.query.filter_by(username=username).first()
-            if existing_user:
-                return {'error': 'Username already exists'}, 409  # Conflict
-
-            # Create a new user
+        if username:
             new_user = User(username=username)
             new_user.password_hash = password
 
             db.session.add(new_user)
             db.session.commit()
             session['user_id'] = new_user.id
-            return new_user.to_dict(), 201  # Created
-        except ValueError as ve:
-            return {'error': str(ve)}, 400  # Bad Request
-        except IntegrityError as ie:
-            db.session.rollback()
-            return {'error': 'Username already exists'}, 409  # Conflict
-        except Exception as e:
-            db.session.rollback()
-            # Internal Server Error
-            return {'error': 'Internal Server Error'}, 500
+            return new_user.to_dict(), 201
+        return {'error': '422 Unprocessable Entity'}, 422
 
 
 api.add_resource(Signup, '/signup', endpoint='signup')
@@ -54,16 +35,13 @@ api.add_resource(Signup, '/signup', endpoint='signup')
 
 class CheckSession(Resource):
     def get(self):
-        if session.get('user_id') is None:
-            return {}, 204  # No Content - User is not authenticated
+        if session.get('user_id') == None:
+            return {}, 204
         user = User.query.filter(User.id == session.get('user_id')).first()
-        if user is not None:
-            return user.to_dict(), 200  # No Content - User is not authenticated
-        else:
-            return {"message": "User not found"}, 404  # User not found
+        return user.to_dict(), 200
 
 
-api.add_resource(CheckSession, '/check_session', endpoint='check_session')
+api.add_resource(CheckSession, '/check_session')
 
 
 class Login(Resource):
