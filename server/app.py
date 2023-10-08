@@ -5,7 +5,7 @@ from flask_restful import Resource
 from sqlalchemy import func
 from sqlalchemy.exc import IntegrityError
 from config import app, db, api, bcrypt
-from models import User, Review, Car, Password
+from models import User, Review, Car
 
 # ============#============#============#============#============
 # API's Starts Here
@@ -76,40 +76,26 @@ api.add_resource(Logout, '/logout', endpoint='logout')
 
 
 class Signup(Resource):
-
     def post(self):
 
         username = request.get_json()['username']
-        email = request.get_json()['email']
         password = request.get_json()['password']
 
-        if len(username) < 15 and len(password) > 8:
-            # hash the input password, then add it in database
-            hashed_password = bcrypt.generate_password_hash(
-                password).decode('utf-8')
-            password_record = Password(_password_hash=hashed_password)
-            db.session.add(password_record)
+        if username:
+            new_user = User(username=username)
+            new_user.password_hash = password
+
+            db.session.add(new_user)
             db.session.commit()
-
-            # Create a new user with the password foreign key
-            new_user = User(username=username, email=email,
-                            password_id=password_record.id)
-            try:
-                db.session.add(new_user)
-                db.session.commit()
-                session['user_id'] = new_user.id
-                return new_user.to_dict(), 201
-
-            except IntegrityError as e:
-                db.session.rollback()
-                return {'errors': 'username already taken'}, 400
-        return {'errors' 'unproceessable entity'}, 422
+            session['user_id'] = new_user.id
+            return new_user.to_dict(), 201
+        return {'error': '422 Unprocessable Entity'}, 422
 
 
-api.add_resource(Signup, '/signup')
-
+api.add_resource(Signup, '/signup', endpoint='signup')
 
 # ============#============#============#============#============
+
 
 class Cars(Resource):
     def get(self):

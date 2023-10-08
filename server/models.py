@@ -55,13 +55,10 @@ class User(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(), unique=True, nullable=False)
-    admin = db.Column(db.String, default=False)
-
-    password_id = db.Column(db.Integer, db.ForeignKey(
-        'passwords.id'), nullable=False)
+    admin = db.Column(db.Boolean, nullable=False, default=False)
+    _password_hash = db.Column(db.String)
 
     reviews = db.relationship('Review', backref='user')
-    password = db.relationship('Password', backref='user')
 
     @hybrid_property
     def password_hash(self):
@@ -77,18 +74,5 @@ class User(db.Model, SerializerMixin):
         return bcrypt.check_password_hash(
             self._password_hash, password.encode('utf-8'))
 
-
     def __repr__(self):
         return f'User {self.username}, ID: {self.id}'
-
-# ===============#===============#===============#===============#===============#===============#===============
-
-
-class Password(db.Model, SerializerMixin):
-    __tablename__ = 'passwords'
-
-    serializ_rules = ('-reviews.user',)
-    serializ_rules = ('-password.user',)
-
-    id = db.Column(db.Integer, primary_key=True)
-    _password_hash = db.Column(db.String, nullable=False)

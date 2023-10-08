@@ -1,16 +1,10 @@
 #!/usr/bin/env python3
-
-
-from datetime import datetime
+from datetime import datetime, timezone
 import itertools
-from datetime import timezone
 from random import randint, choice as random_choice
-
-
+import bcrypt
 from faker import Faker
 from faker_vehicle import VehicleProvider
-
-
 from app import app
 from models import db, User, Review, Car
 import string
@@ -34,18 +28,16 @@ def generate_fake_vin():
 if __name__ == '__main__':
 
     with app.app_context():
-        print("~~~~~~Start Seeding!...~~~~~~")
-        # Seed code goes here
+        print("~~~~~~Delete Old Seeding!...~~~~~~")
         Review.query.delete()
         User.query.delete()
         Car.query.delete()
 
         users = []
         print('~~~~~~Seeding Fake Users~~~~~~')
-        for _ in range(10):
+        for _ in range(5):
             user = User(
                 username=fake.name(),
-                admin=fake.admin(),
             )
             user.password_hash = f'{user.username}password'
             users.append(user)
@@ -53,7 +45,7 @@ if __name__ == '__main__':
         db.session.add_all(users)
 
         cars = []
-        print('~~~~~~Seeding Fake Users~~~~~~')
+        print('~~~~~~Seeding Fake Cars~~~~~~')
         for _ in range(5):
             make = fake.vehicle_make()
             model = fake.vehicle_model()
@@ -78,7 +70,7 @@ if __name__ == '__main__':
         db.session.add_all(cars)
 
         reviews = []
-        print('~~~~~~Seeding Fake Posts | Cars ~~~~~~')
+        print('~~~~~~Seeding Fake Reviews ~~~~~~')
         for _, _ in itertools.product(users, range(6)):
             review = Review(
                 review=fake.paragraph(),
@@ -88,7 +80,7 @@ if __name__ == '__main__':
             )
             reviews.append(review)
 
-        db.session.add_all(review)
+        db.session.add_all(reviews)
 
         for car in cars:
             review = random_choice(reviews)
