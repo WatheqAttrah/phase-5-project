@@ -33,11 +33,17 @@ api.add_resource(ClearSession, '/clear', endpoint='clear')
 
 class CheckSession(Resource):
     def get(self):
-        if session.get('user_id') == None:
-            return {}, 204
-        user = User.query.filter(User.id == session.get('user_id')).first()
-        return user.to_dict(), 200
 
+        user_id = session.get('user_id')
+
+        if user_id is None:
+            return {}, 204 # return 204 (No Content)
+        # Query the User table specified user_id
+        user = User.query.filter_by(id=user_id).first()
+        if user is not None:
+            return user.to_dict(), 200 # User found, return user data with 200 (OK)
+        else:
+            return {'error': 'User not found'}, 404
 
 api.add_resource(CheckSession, '/check_session', endpoint='check_session')
 
