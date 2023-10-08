@@ -11,6 +11,9 @@ class User(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(), unique=True, nullable=False)
+    email = db.Column(db.String(), unique=True, nullable=False)
+    image = db.Column(db.String(50))
+
     _password_hash = db.Column(db.String)
 
     posts = db.relationship('Post', backref='user')
@@ -41,7 +44,7 @@ class Post(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String, nullable=False)
     description = db.Column(db.String())
-    created_at = db.Column(db.DateTime, nullable=False, default=db.func.now)
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))

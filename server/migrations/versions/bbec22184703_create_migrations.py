@@ -1,8 +1,8 @@
-"""Create Migration DB Tables
+"""Create migrations
 
-Revision ID: 68460dfb8a08
+Revision ID: bbec22184703
 Revises: 
-Create Date: 2023-10-07 18:05:46.243265
+Create Date: 2023-10-07 22:14:55.112060
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '68460dfb8a08'
+revision = 'bbec22184703'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -23,7 +23,7 @@ def upgrade():
     sa.Column('make', sa.String(length=20), nullable=True),
     sa.Column('model', sa.String(length=20), nullable=True),
     sa.Column('year', sa.Integer(), nullable=True),
-    sa.Column('image', sa.String(length=256), nullable=True),
+    sa.Column('image', sa.String(length=50), nullable=True),
     sa.Column('price', sa.Float(precision=2), nullable=True),
     sa.Column('vin', sa.String(length=17), nullable=True),
     sa.Column('engine', sa.Integer(), nullable=True),
@@ -34,15 +34,18 @@ def upgrade():
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(), nullable=False),
+    sa.Column('email', sa.String(), nullable=False),
+    sa.Column('image', sa.String(length=50), nullable=True),
     sa.Column('_password_hash', sa.String(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
     op.create_table('posts',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(), nullable=False),
     sa.Column('description', sa.String(), nullable=True),
-    sa.Column('created_at', sa.DateTime(), nullable=False),
+    sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('car_id', sa.Integer(), nullable=True),
