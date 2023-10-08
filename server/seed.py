@@ -12,7 +12,7 @@ from faker_vehicle import VehicleProvider
 
 
 from app import app
-from models import db, User, Post, Car
+from models import db, User, Review, Car
 import string
 import random
 
@@ -22,7 +22,7 @@ fake.add_provider(VehicleProvider)
 
 
 def generate_fake_vin():
-    # The first character in a VIN is typically a letter, so we'll start with that.
+    # The first character in a VIN is typically a letter
     vin = random.choice(string.ascii_uppercase)
     # Generate the remaining 16 characters, which can be letters and numbers.
     vin += ''.join(random.choice(string.ascii_uppercase + string.digits)
@@ -36,16 +36,19 @@ if __name__ == '__main__':
     with app.app_context():
         print("~~~~~~Start Seeding!...~~~~~~")
         # Seed code goes here
-        Post.query.delete()
+        Review.query.delete()
         User.query.delete()
         Car.query.delete()
 
         users = []
         print('~~~~~~Seeding Fake Users~~~~~~')
+
         for _ in range(5):
             user = User(
                 username=fake.name(),
-
+                email=fake.email(),  # Add a random email address
+                # Set admin status randomly
+                admin=fake.boolean(chance_of_getting_true=20)
             )
             user.password_hash = f'{user.username}password'
             users.append(user)
@@ -59,7 +62,7 @@ if __name__ == '__main__':
             model = fake.vehicle_model()
             year = fake.random_int(min=1990, max=2023)
             image = fake.image_url()
-            price = round(fake.random_int(min=1000, max=150000) / 100, 2)
+            price = round(fake.random_int(min=1000, max=150000) / 2)
             vin = generate_fake_vin()
             engine = fake.random_int(min=4, max=12)
             miles = fake.random_int(min=5000, max=170000)
@@ -77,24 +80,19 @@ if __name__ == '__main__':
 
         db.session.add_all(cars)
 
-        posts = []
-        print('~~~~~~Seeding Fake Posts | Cars ~~~~~~')
+        reviews = []
+        print('~~~~~~Seeding Fake Reviews~~~~~~')
+
         for _, _ in itertools.product(users, range(6)):
-            post = Post(
-                title=fake.sentence(nb_words=3),
-                description=fake.text(max_nb_chars=200),
+            review = Review(
+                review=fake.text(max_nb_chars=200),
                 created_at=datetime.now(timezone.utc),
                 user=random_choice(users),
-                cars=random_choice(cars),
+                car=random_choice(cars),
             )
-            posts.append(post)
+            reviews.append(review)
 
-        db.session.add_all(posts)
-
-        for car in cars:
-            review_post = random_choice(posts)
-            car.review = review_post
-            posts.remove(review_post)
+        db.session.add_all(reviews)
 
         db.session.commit()
         print('~~~~~Seeding Complete~~~~~')
