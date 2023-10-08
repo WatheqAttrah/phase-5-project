@@ -34,10 +34,13 @@ api.add_resource(Signup, '/signup', endpoint='signup')
 
 class CheckSession(Resource):
     def get(self):
-        if session.get('user_id') == None:
+        if session.get('user_id') is None:
             return {}, 204
         user = User.query.filter(User.id == session.get('user_id')).first()
-        return user.to_dict(), 200
+        if user is not None:
+            return user.to_dict(), 200
+        else:
+            return {"message": "User not found"}, 404
 
 
 api.add_resource(CheckSession, '/check_session')

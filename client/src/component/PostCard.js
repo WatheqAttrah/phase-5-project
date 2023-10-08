@@ -1,6 +1,6 @@
 import React from 'react'
 
-function PostCard({ user, id, title, description }) {
+function PostCard({ user_id, id, title, description }) {
 
 
   return (
