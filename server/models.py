@@ -1,6 +1,5 @@
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.hybrid import hybrid_property
-from app import app
 from config import db, bcrypt
 
 # ===============#===============#===============#===============#===============#===============#===============
