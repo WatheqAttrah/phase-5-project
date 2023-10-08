@@ -45,6 +45,8 @@ if __name__ == '__main__':
         print('~~~~~~Seeding Fake Users~~~~~~')
         for _ in range(10):
             user = User(username=fake.name(),
+                        email=fake.email(),
+                        image=fake.image_url()                      
                         )
             user.password_hash = f'{user.username}password'
             users.append(user)
