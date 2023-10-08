@@ -3,23 +3,35 @@ import PostCard from './PostCard';
 
 function Post() {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     // Fetch all posts from the server
     fetch('/posts')
       .then((response) => {
-        if (response.status === 200) {
-          return response.json();
+        if (!response.ok) {
+          throw new Error('Failed to fetch posts');
         }
-        throw new Error('Failed to fetch posts');
+        return response.json();
       })
       .then((data) => {
         setPosts(data);
+        setLoading(false);
       })
       .catch((error) => {
-        console.error(error);
+        setError(error);
+        setLoading(false);
       });
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <div>
@@ -30,6 +42,8 @@ function Post() {
         <div>
           {posts.map((post) => (
             <PostCard
+              key={post.id}
+              id={post.id}
               title={post.title}
               description={post.description}
             />

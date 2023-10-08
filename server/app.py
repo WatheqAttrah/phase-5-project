@@ -30,15 +30,16 @@ class Signup(Resource):
         return {'error': '422 Unprocessable Entity'}, 422
 
 
-api.add_resource(Signup, '/signup', endpoint='signup')
+api.add_resource(Signup, '/signup')
 
 
 class CheckSession(Resource):
+
     def get(self):
         if session.get('user_id') == None:
             return {}, 204
         user = User.query.filter(User.id == session.get('user_id')).first()
-        return user.to_dict(), 200
+        return user.to_dict(),200
 
 
 api.add_resource(CheckSession, '/check_session')
@@ -56,7 +57,7 @@ class Login(Resource):
         return {'error': '401 Unauthorized'}, 401
 
 
-api.add_resource(Login, '/login', endpoint='login')
+api.add_resource(Login, '/login')
 
 
 class Logout(Resource):

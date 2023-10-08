@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
+import '../index'
 
 
 function Login({ setUser }) {
@@ -33,16 +34,18 @@ function Login({ setUser }) {
   })
 
   return (
-    <div>
+    <div className="form-group">
       <h1>User Login</h1>
       <form onSubmit={formik.handleSubmit}>
-        <label htmlFor='username'>username</label>
-        <input id='username' name='username' type='text' onChange={formik.handleChange} value={formik.values.username} />
         <br></br>
-        <label htmlFor='password'>password</label>
-        <input id='password' name='password' type='password' onChange={formik.handleChange} value={formik.values.password} />
-
-        <button type='submit'>Login</button>
+        <label className='label' htmlFor='username'> Username </label>
+        <input className='input' id='username' name='username' type='text' onChange={formik.handleChange} value={formik.values.username} />
+        <br></br>
+        <label className='label' htmlFor='password'> Password   </label>
+        <input className='input' id='password' name='password' type='password' onChange={formik.handleChange} value={formik.values.password} />
+        <br></br>
+        <button className='button' type='submit'> Login </button>
+        <br></br>
       </form>
     </div>
   )

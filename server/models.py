@@ -11,8 +11,6 @@ class User(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(), unique=True, nullable=False)
-    email = db.Column(db.String(), unique=True, nullable=False)
-    image = db.Column(db.String(50))
 
     _password_hash = db.Column(db.String)
 

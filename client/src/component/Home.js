@@ -4,8 +4,8 @@ function Home({ user }) {
     if (user) {
         return (
             <div>
-                <h1>{user.username} is Logged in</h1>
-                <h2>Welcome to .... </h2>
+                <h1>Homepage</h1>
+                <h2>Welcome to </h2>
             </div>
         )
     } else {

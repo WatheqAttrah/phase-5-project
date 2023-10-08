@@ -36,10 +36,13 @@ function NavBar({ user, setUser }) {
               Home
             </NavLink>
             <NavLink to="/signup" exact>
-              Signup
+              SignUp
             </NavLink>
             <NavLink to="/login" exact>
               Login
+            </NavLink>
+            <NavLink to="/" exact>
+              Contact Us
             </NavLink>
           </>
         )}

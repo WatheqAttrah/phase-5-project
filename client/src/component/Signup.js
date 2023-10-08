@@ -41,13 +41,13 @@ function Signup({ setUser }) {
   });
 
   return (
-    <div>
-      <h1>User Signup</h1>
+    <div className="form-group">
+      <h1>User Sign Up</h1>
       <br />
       <form onSubmit={formik.handleSubmit}>
-        <label htmlFor="username">Username</label>
+        <label className='lable' htmlFor="username">Username</label>
         <br />
-        <input
+        <input className='input'
           id="username"
           name="username"
           type="text"
@@ -56,9 +56,9 @@ function Signup({ setUser }) {
         />
         <p style={{ color: "red" }}>{formik.errors.username}</p>
 
-        <label htmlFor="password">Password</label>
+        <label className='lable' htmlFor="password">Password</label>
         <br />
-        <input
+        <input className='input'
           id="password"
           name="password"
           type="password"
@@ -67,9 +67,9 @@ function Signup({ setUser }) {
         />
         <p style={{ color: "red" }}>{formik.errors.password}</p>
 
-        <label htmlFor="password_confirmation">Confirm Password</label>
+        <label className='lable'  htmlFor="password_confirmation">Confirm Password</label>
         <br />
-        <input
+        <input className='input'
           id="confirm"
           name="confirm"
           type="password"
@@ -78,7 +78,7 @@ function Signup({ setUser }) {
         />
         <p style={{ color: "red" }}>{formik.errors.confirm}</p>
 
-        <button type="submit">Signup</button>
+        <button className='button' type="submit">Signup</button>
       </form>
     </div>
   );
