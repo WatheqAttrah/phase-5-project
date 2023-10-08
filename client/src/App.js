@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import React, { useState, useEffect } from 'react'
 import { Route, Switch } from 'react-router-dom'
@@ -8,8 +7,10 @@ import Post from './component/Post'
 import Login from './component/Login'
 import Signup from './component/Signup'
 
-function App() {
 
+
+
+function App() {
   const [user, setUser] = useState(null)
 
 
@@ -22,41 +23,37 @@ function App() {
       });
   }, [])
 
-
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <NavBar user={user} setUser={setUser} />
-        <main>
-          {user ? (
-            <Switch>
-              <Route path='/'>
-                <Home user={user} />
-                <Post user={user} />
-              </Route>
-            </Switch>
-          ) : (
-            <Switch>
-              <Route path='/signup'>
-                <Signup setUser={setUser} />
-              </Route>
-              <Route path='/login'>
-                <Login setUser={setUser} />
-              </Route>
-              <Route NewPost='/Post'>
-                <Home />
-              </Route>
-              <Route path='/'>
-                <Home />
-              </Route>
-            </Switch>
-          )
-          }
-        </main>
-      </header>
+    <div>
+      <NavBar user={user} setUser={setUser} />
+      <main>
+        {user ? (
+          <Switch>
+            <Route path='/'>
+              <Home user={user} />
+              <Post user={user} />
+            </Route>
+          </Switch>
+        ) : (
+          <Switch>
+            <Route path='/signup'>
+              <Signup setUser={setUser} />
+            </Route>
+            <Route path='/login'>
+              <Login setUser={setUser} />
+            </Route>
+            <Route NewPost='/Post'>
+              <Home />
+            </Route>
+            <Route path='/'>
+              <Home />
+            </Route>
+          </Switch>
+        )
+        }
+      </main>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

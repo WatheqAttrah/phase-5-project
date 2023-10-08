@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 flask-sqlalchemy = "*"
 flask-migrate = "*"
-sqlalchemy-serializer = "*"
 flask-restful = "*"
 flask-cors = "*"
 gunicorn = "*"
@@ -23,6 +22,8 @@ marshmallow = "*"
 python-dotenv = "*"
 honcho = "*"
 response = "*"
+sqlalchemy = "*"
+sqlalchemy-serializer = "*"
 
 [dev-packages]
 

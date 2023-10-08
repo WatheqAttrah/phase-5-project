@@ -4,9 +4,6 @@ from sqlalchemy.ext.associationproxy import association_proxy
 from flask_restful import Resource
 from sqlalchemy import func
 from sqlalchemy.exc import IntegrityError
-# from urllib import response
-# import functools
-# from sqlalchemy import func
 from config import app, db, api, bcrypt
 from models import User, Post, Car
 

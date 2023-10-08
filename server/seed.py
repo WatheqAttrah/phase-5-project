@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 
-# Standard library imports
+
 from datetime import datetime
 import itertools
 from datetime import timezone
 from random import randint, choice as random_choice
 
-# Remote library imports
+
 from faker import Faker
 from faker_vehicle import VehicleProvider
 
 
-# Local imports
+
 from app import app
 from models import db, User, Post, Car
 import string
@@ -45,8 +45,6 @@ if __name__ == '__main__':
         print('~~~~~~Seeding Fake Users~~~~~~')
         for _ in range(10):
             user = User(username=fake.name(),
-                        image_url=fake.url(),
-                        email=fake.email(),
                         )
             user.password_hash = f'{user.username}password'
             users.append(user)
