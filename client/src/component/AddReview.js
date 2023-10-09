@@ -37,15 +37,14 @@ function AddReview({ carId, onAddReview, user, onAppendReview }) {
         }
         return response.json();
       })
-      .then((review) => {
-        onAddReview(review);
+      .then((rev) => {
+        onAddReview(rev);
         setReviewText('');
         setShowForm(false);
-        onAppendReview(review);
+        onAppendReview(rev);
       })
       .catch((error) => {
-        console.error('Error adding review:', error);
-        alert('Failed to add review. Please try again later.');
+        console.error('Error adding review:', error); 
       })
       .finally(() => {
         setIsLoading(false);

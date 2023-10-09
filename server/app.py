@@ -7,6 +7,7 @@ from sqlalchemy.exc import IntegrityError
 from config import app, db, api, bcrypt
 from models import User, Review, Car
 
+
 # ============#============#============#============#============
 # API's Starts Here
 
@@ -17,15 +18,14 @@ def index():
 
 # ClearSession
 
+# class ClearSession(Resource):
+#     def delete(self):
+#         session['page_views'] = None
+#         session['user_id'] = None
+#         return {}, 204
 
-class ClearSession(Resource):
-    def delete(self):
-        session['page_views'] = None
-        session['user_id'] = None
-        return {}, 204
 
-
-api.add_resource(ClearSession, '/clear', endpoint='clear')
+# api.add_resource(ClearSession, '/clear', endpoint='clear')
 
 # ============#============#============#============#============
 # Check_Session
@@ -37,13 +37,14 @@ class CheckSession(Resource):
         user_id = session.get('user_id')
 
         if user_id is None:
-            return {}, 204 # return 204 (No Content)
+            return {}, 204  # return 204 (No Content)
         # Query the User table specified user_id
         user = User.query.filter_by(id=user_id).first()
         if user is not None:
-            return user.to_dict(), 200 # User found, return user data with 200 (OK)
+            return user.to_dict(), 200  # User found, return user data with 200 (OK)
         else:
             return {'error': 'User not found'}, 404
+
 
 api.add_resource(CheckSession, '/check_session', endpoint='check_session')
 
@@ -54,18 +55,13 @@ class Login(Resource):
     def post(self):
         username = request.get_json()['username']
         password = request.get_json()['password']
-
         user = User.query.filter(User.username == username).first()
-
-        if user and user.authenticate(password):
-            # Successful authentication
+        if user.authenticate(password):
             session['user_id'] = user.id
             return user.to_dict(), 200
-        # Authentication failed
         return {'error': '401 Unauthorized'}, 401
 
-
-api.add_resource(Login, '/login', endpoint='login')
+api.add_resource(Login, '/login')
 
 # ============#============#============#============#============
 
@@ -121,7 +117,7 @@ class Cars(Resource):
         return make_response(jsonify(cars), 200)
 
 
-api.add_resource(Cars, '/cars', endpoint='cars')
+api.add_resource(Cars, '/cars')
 # ============#============#============#============#============
 
 

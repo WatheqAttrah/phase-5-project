@@ -54,6 +54,7 @@ function CarCard({ make, model, year, vin, price, engine, miles, image_url, id, 
       <p>VIN: <b>{vin}</b></p>
       <p>Engine: <b>{engine}</b></p>
       <p>Miles: <b>{miles}</b></p>
+      <p>ID: <b>{id}</b></p>
       <p>Image URL: <b>{image_url}</b></p>
 
       <button onClick={toggleReviews}>
