@@ -23,6 +23,7 @@ function CarList({ user }) {
           vin={car.vin}
           engine={car.engine}
           price={car.price}
+          miles={car.miles}
           image_url={car.image_url} // Use image_url to match the prop name
         />
       ))}

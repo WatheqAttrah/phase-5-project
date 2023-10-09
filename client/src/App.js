@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     // Check the user session on the server-side
-    fetch("/check_session")
+    fetch('/check_session')
       .then((response) => {
         if (response.status === 200) {
           // Parse the JSON response
