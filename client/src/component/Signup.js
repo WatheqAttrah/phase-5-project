@@ -5,7 +5,7 @@ import * as yup from "yup";
 function Signup({ setUser }) {
   // Validation using yup schema builder
   const formSchema = yup.object().shape({
-    username: yup.string().required("Username is required").max(15, '15 characters max'),
+    username: yup.string().required("Username is required"),
     password: yup.string().min(6, 'At least 6 characters').required("Password is required"),
     confirm: yup
       .string()

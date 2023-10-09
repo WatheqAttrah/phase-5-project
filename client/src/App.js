@@ -1,17 +1,13 @@
-import './App.css';
-import React, { useState, useEffect } from 'react'
-import { Route, Switch, Redirect } from 'react-router-dom'
-import NavBar from "./component/NavBar"
-import Home from "./component/Home"
-import Post from './component/Post'
-import Login from './component/Login'
-import Signup from './component/Signup'
-import Car from './component/Car';
-
-
+import React, { useState, useEffect } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import NavBar from "./component/NavBar";
+import Home from "./component/Home";
+import Login from './component/Login';
+import Signup from './component/Signup';
+import CarList from './component/CarList';
 
 function App() {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     // Check the user session on the server-side
@@ -43,16 +39,15 @@ function App() {
           <Route exact path='/' component={Home} />
           <Route path='/login' render={() => user ? <Redirect to='/' /> : <Login setUser={setUser} />} />
           <Route path='/signup' render={() => user ? <Redirect to='/' /> : <Signup setUser={setUser} />} />
-          <Route path='/post' render={() => user ? <Post user={user} /> : <Redirect to='/login' />} />
-          <Route path='/posts' component={Post} />
-          <Route path='/Car' component={Car} />
-          <Route path='/'>
-            <Home user={user} />
+          <Route path='/cars/<inst:id>' render={() => user ? <Redirect to='/' /> : <Home setUser={setUser} />} />
+          {/* Define the Route for CarList */}
+          <Route path="/cars">
+            <CarList user={user} />
           </Route>
         </Switch>
       </main>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

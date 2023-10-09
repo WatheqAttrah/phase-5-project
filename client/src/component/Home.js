@@ -4,8 +4,8 @@ function Home({ user }) {
     if (user) {
         return (
             <div>
-                <h1>Homepage</h1>
-                <h2>Welcome to </h2>
+                <h1>Welcome, {user.username} </h1>
+                <h2>Cars List </h2>
             </div>
         )
     } else {
