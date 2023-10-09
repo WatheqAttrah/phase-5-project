@@ -1,24 +1,31 @@
 import React, { useState } from 'react';
 
 function AddReview({ carId, onAddReview, user, onAppendReview }) {
-  const [showForm, setShowForm] = useState(false);
-  const [reviewText, setReviewText] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [reviewData, setReviewData] = useState({
+    showForm: false,
+    reviewText: '',
+    isLoading: false,
+  });
 
   const closeForm = () => {
-    setShowForm(false);
-    setReviewText('');
+    setReviewData({ ...reviewData, showForm: false, reviewText: '' });
+  };
+
+  const handleChangeReviewText = (e) => {
+    setReviewData({ ...reviewData, reviewText: e.target.value });
   };
 
   const handleSubmitReview = () => {
+    const { reviewText } = reviewData;
+
     if (reviewText.trim() === '') {
       alert('Please enter a review.');
       return;
     }
 
-    setIsLoading(true);
+    setReviewData({ ...reviewData, isLoading: true });
 
-    const reviewData = {
+    const newReview = {
       user_id: user.id,
       car_id: carId,
       review_text: reviewText,
@@ -29,7 +36,7 @@ function AddReview({ carId, onAddReview, user, onAppendReview }) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(reviewData),
+      body: JSON.stringify(newReview),
     })
       .then((response) => {
         if (!response.ok) {
@@ -39,37 +46,37 @@ function AddReview({ carId, onAddReview, user, onAppendReview }) {
       })
       .then((rev) => {
         onAddReview(rev);
-        setReviewText('');
-        setShowForm(false);
+        setReviewData({ ...reviewData, reviewText: '', showForm: false });
         onAppendReview(rev);
       })
       .catch((error) => {
-        console.error('Error adding review:', error); 
+        console.error('Error adding review:', error);
+        alert('Failed to add review. Please try again later.');
       })
       .finally(() => {
-        setIsLoading(false);
+        setReviewData({ ...reviewData, isLoading: false });
       });
   };
 
   return (
     <div>
-      <button onClick={() => setShowForm(true)}>Add Review</button>
-      {showForm && (
+      <button onClick={() => setReviewData({ ...reviewData, showForm: true })}>Add Review</button>
+      {reviewData.showForm && (
         <div>
           <textarea
             rows='4'
             cols='50'
-            value={reviewText}
-            onChange={(e) => setReviewText(e.target.value)}
+            value={reviewData.reviewText}
+            onChange={handleChangeReviewText}
             placeholder='Enter your review'
           />
           <button
             onClick={handleSubmitReview}
-            disabled={isLoading}
+            disabled={reviewData.isLoading}
           >
-            {isLoading ? 'Submitting...' : 'Submit'}
+            {reviewData.isLoading ? 'Submitting...' : 'Submit'}
           </button>
-          <button onClick={closeForm} disabled={isLoading}>
+          <button onClick={closeForm} disabled={reviewData.isLoading}>
             Cancel
           </button>
         </div>
@@ -77,4 +84,5 @@ function AddReview({ carId, onAddReview, user, onAppendReview }) {
     </div>
   );
 }
+
 export default AddReview;

@@ -29,7 +29,6 @@ function App() {
           <Route path='/login' render={() => user ? <Redirect to='/' /> : <Login setUser={setUser} />} />
           <Route path='/signup' render={() => user ? <Redirect to='/' /> : <Signup setUser={setUser} />} />
           <Route path='/cars/<int:id>' render={() => user ? <Redirect to='/' /> : <Home setUser={setUser} />} />
-          {/* Define the Route for CarList */}
           <Route path="/cars">
             <CarList user={user} />
           </Route>

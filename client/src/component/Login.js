@@ -14,11 +14,10 @@ function Login({ setUser }) {
   });
 
   const formik = useFormik({
-    initialValues: {
-      username: '',
-      password: '',
-    },
+    initialValues: { username: '', password: '',},
+    
     validationSchema: formSchema,
+    
     onSubmit: (values) => {
       fetch('/login', {
         method: 'POST',
@@ -27,19 +26,17 @@ function Login({ setUser }) {
         },
         body: JSON.stringify(values),
       })
-        .then((response) => {
-          if (response.ok) {
-            return response.json()
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
           }
           throw new Error('Login failed');
-        })
-        .then((user) => {
-          setUser(user);
-        })
-        .catch((error) => {
-          console.error('Error during login:', error);
-        });
-    },
+          })
+          .then((user) => {
+            setUser(user);
+          })
+        .catch((error) => {console.error('Error during login:', error);});
+      },
   });
 
   const handleInputChange = (event) => {

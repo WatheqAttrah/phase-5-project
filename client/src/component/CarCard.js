@@ -35,6 +35,10 @@ function CarCard({ make, model, year, vin, price, engine, miles, image_url, id, 
     }
   }, [showReviews, id]);
 
+
+  
+
+
   function handleAddReview(newReview) {
     setReviews([...reviews, newReview]);
   }

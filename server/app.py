@@ -18,14 +18,14 @@ def index():
 
 # ClearSession
 
-# class ClearSession(Resource):
-#     def delete(self):
-#         session['page_views'] = None
-#         session['user_id'] = None
-#         return {}, 204
+class ClearSession(Resource):
+    def delete(self):
+        session['page_views'] = None
+        session['user_id'] = None
+        return {}, 204
 
 
-# api.add_resource(ClearSession, '/clear', endpoint='clear')
+api.add_resource(ClearSession, '/clear', endpoint='clear')
 
 # ============#============#============#============#============
 # Check_Session
