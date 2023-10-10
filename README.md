@@ -1,7 +1,4 @@
 # phase-5-project
-## Project 5 Guideline & Requirements
-- [Phase 5 Full-Stack Application Project Template](https://my.learn.co/courses/655/pages/phase-5-full-stack-application-project-template?module_item_id=90938)
-- [Phase 5 Project Guidelines And Schedule](https://my.learn.co/courses/655/pages/phase-5-project-guidelines-and-schedule?module_item_id=83806)
 
 ## Creating Your Own Git Repo
 - New Repo in Github.
@@ -95,14 +92,15 @@
     - Run `npm install --prefix client`
 
 - Components
-    - Home.js
-    - App.js
-    - Login.js 
-    - Signup.js
-    - NavBar.js 
-    - CarCard.js
-    - CarList.js
-    - AddReview.js
+    - Home.js: Welcome the users in to the project 
+    - App.js : holds the checksession and authenticating users to the site.
+    - Login.js: holds the Login api 'POST' method and server error handling. 
+    - Signup.js: holds the singup 'POST' api method and server error handling.
+    - NavBar.js: the Navigation routes between all the routes
+    - CarCard.js: render each car and review in the backend api
+    - CarList.js: fetch the db from the backend 'GET" & 'POST'
+    - AddReview.js: holds the 'POST' method when User intended to add review to and listed car from the list
+
 
 
 
