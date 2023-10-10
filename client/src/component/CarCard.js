@@ -36,9 +36,6 @@ function CarCard({ make, model, year, vin, price, engine, miles, image_url, id, 
   }, [showReviews, id]);
 
 
-  
-
-
   function handleAddReview(newReview) {
     setReviews([...reviews, newReview]);
   }
@@ -50,7 +47,7 @@ function CarCard({ make, model, year, vin, price, engine, miles, image_url, id, 
   const cardClassName = `card ${showReviews ? 'highlighted-card' : ''}`;
 
   return (
-    <div className={cardClassName}>
+    <div className="form-group">
       <p>Make: <b>{make}</b></p>
       <p>Model: <b>{model}</b></p>
       <p>Year: <b>{year}</b></p>

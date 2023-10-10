@@ -59,8 +59,8 @@ function AddReview({ carId, onAddReview, user, onAppendReview }) {
   };
 
   return (
-    <div>
-      <button onClick={() => setReviewData({ ...reviewData, showForm: true })}>Add Review</button>
+    <div className="form-group">
+      <button  onClick={() => setReviewData({ ...reviewData, showForm: true })}>Add Review</button>
       {reviewData.showForm && (
         <div>
           <textarea
@@ -70,7 +70,7 @@ function AddReview({ carId, onAddReview, user, onAppendReview }) {
             onChange={handleChangeReviewText}
             placeholder='Enter your review'
           />
-          <button
+          <button 
             onClick={handleSubmitReview}
             disabled={reviewData.isLoading}
           >

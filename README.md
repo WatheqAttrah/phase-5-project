@@ -56,13 +56,35 @@
     - Using requests, you can get, post, delete, update the data for the URL given.
 
 ## Create Backend files
+-  Test Python Environment test=Pass
 - config.py
+    - Python application configurations.
+        - app = Flask
+        - app.secret key
+        - metaadata
+        - app.json
+        - CORS
+        - bcrypt
+
 - app.py
-    - is your Flask application
-    - Build a simple API backend like we have in previous modules.
-    - You should use Flask-RESTful for your routes
+    - Routes to the API's [ '/' Home | Checksession , Login , Signup, Signout, Clearsession, CarByID ], 
+    - HTTP GET | POST | Delete
+
+
 - models.py
+    - User Model [ id , username, admin, hashed_password]
+    - Car Model [ id, make, model, year, vin, image , engine , miles]
+    - Review Model [ id ,review, created_at, updated_at, user_id, car_id]
+    - Many-To Many Realtionship [ Car - Review ]
+
+
 - seed.py
+    - Seed Fake Data for testing reasons.
+        - Faker()
+        - FakerVehicle() to generate fake car data.
+        - Created Fake Associattion Table [ Car <=> Review ]
+
+
 
 ## Frontend 
 - Create client directory
@@ -72,17 +94,15 @@
 - Install Node 
     - Run `npm install --prefix client`
 
-## Test Python Environment 
-- Pass
-## Test Node Environment
-- Pass
+- Components
+    - Home.js
+    - App.js
+    - Login.js 
+    - Signup.js
+    - NavBar.js 
+    - CarCard.js
+    - CarList.js
+    - AddReview.js
 
-# Frontend 
-    -Flask
-
-
-
-# Backend 
-    - 
 
 
